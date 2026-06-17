@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TMAY Interview Playbook · Eccles School of Business</title>
+<style>
+  :root {
+    --bg: #0d0d10; --bg-2: #15151a; --bg-3: #1c1c23; --bg-4: #23232b;
+    --border: #2b2b34; --border-2: #3a3a45;
+    --text: #ededf2; --text-dim: #a4a4b0; --text-faint: #6c6c78;
+    --red: #CC0000; --red-bright: #ff2e2e; --red-dim: rgba(204,0,0,.14); --red-glow: rgba(204,0,0,.4);
+    --gold: #c9a84c; --gold-bright: #e3c876; --gold-dim: rgba(201,168,76,.13);
+    --green: #3fb950; --green-dim: rgba(63,185,80,.13);
+    --serif: "Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; padding-bottom: 60px; }
+  
+  /* Layout Structures */
+  .container { display: flex; min-height: 100vh; position: relative; }
+  
+  /* Sidebar Sticky Navigation */
+  aside { width: 300px; background: var(--bg-2); border-right: 1px solid var(--border); position: fixed; top: 70px; bottom: 0; left: 0; overflow-y: auto; padding: 2rem 1.5rem; z-index: 90; }
+  main { flex: 1; margin-left: 300px; padding: 2.5rem 3rem; margin-top: 70px; max-width: 1200px; }
+  
+  /* Header Styles */
+  header { height: 70px; background: rgba(13,13,16,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .logo-area { display: flex; align-items: center; gap: 0.75rem; }
+  .logo-box { background: var(--red); color: #fff; font-weight: 900; font-size: 1.1rem; padding: 0.3rem 0.6rem; border-radius: 2px; letter-spacing: -0.5px; }
+  .logo-text { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; letter-spacing: 0.5px; }
+  .logo-text span { color: var(--gold); font-family: var(--sans); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-left: 6px; border-left: 1px solid var(--border-2); padding-left: 6px; }
+  
+  /* Sidebar Links */
+  .nav-group-title { font-size: 0.7rem; font-weight: 700; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.75rem; margin-top: 1.5rem; }
+  .nav-group-title:first-child { margin-top: 0; }
+  aside ul { list-style: none; }
+  aside li { margin-bottom: 0.25rem; }
+  aside a { display: block; padding: 0.5rem 0.75rem; color: var(--text-dim); text-decoration: none; font-size: 0.9rem; border-radius: 4px; transition: 0.2s ease; }
+  aside a:hover { background: var(--bg-3); color: var(--text); }
+  aside a.active { background: var(--red-dim); color: var(--red-bright); font-weight: 600; border-left: 2px solid var(--red); border-radius: 0 4px 4px 0; }
+  
+  /* Hero Banner */
+  .hero { background: linear-gradient(135deg, var(--bg-2) 0%, #1e1114 100%); border: 1px solid var(--border); border-radius: 8px; padding: 3rem; margin-bottom: 2.5rem; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; top: -50%; right: -20%; width: 350px; height: 350px; background: var(--red); filter: blur(140px); opacity: 0.12; pointer-events: none; }
+  .pill { display: inline-block; background: var(--gold-dim); color: var(--gold-bright); font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 50px; border: 1px solid rgba(201,168,76,0.2); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+  .hero h1 { font-family: var(--serif); font-size: 2.5rem; font-weight: 400; line-height: 1.15; margin-bottom: 1rem; }
+  .hero p { color: var(--text-dim); font-size: 1.1rem; max-width: 800px; }
+  
+  /* Key Metrics Cards */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+  .metric-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; text-align: center; }
+  .metric-val { font-family: var(--serif); font-size: 2rem; color: var(--gold-bright); font-weight: 400; margin-bottom: 0.25rem; }
+  .metric-lbl { font-size: 0.8rem; color: var(--text-dim); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  
+  /* Framework Components */
+  section { scroll-margin-top: 90px; margin-bottom: 4rem; }
+  h2 { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+  h2 span { color: var(--red); font-size: 1.2rem; }
+  p { margin-bottom: 1.25rem; color: var(--text-dim); }
+  
+  .card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px; padding: 2rem; margin-bottom: 1.5rem; }
+  .card h3 { font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; }
+  
+  /* Interactive Section Tabs / Templates Toggle */
+  .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; overflow-x: auto; }
+  .filter-btn { background: var(--bg-3); border: 1px solid var(--border); color: var(--text-dim); padding: 0.5rem 1rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+  .filter-btn:hover { background: var(--bg-4); color: var(--text); }
+  .filter-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+  
+  /* Template Display Cards */
+  .template-card { display: none; background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px; padding: 2rem; margin-bottom: 1.5rem; position: relative; }
+  .template-card.active { display: block; animation: fadeIn 0.3s ease; }
+  .template-segment { margin-bottom: 1.25rem; padding-left: 1rem; border-left: 2px solid var(--border-2); }
+  .template-segment strong { color: var(--gold-bright); font-size: 0.85rem; text-transform: uppercase; display: block; margin-bottom: 0.25rem; letter-spacing: 0.5px; }
+  
+  /* Builder Panel */
+  .builder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+  .field-group { margin-bottom: 1.25rem; }
+  .field-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .field-group label span { color: var(--text-faint); text-transform: none; font-weight: 400; margin-left: 5px; }
+  .field-group input, .field-group textarea { width: 100%; background: var(--bg-3); border: 1px solid var(--border); border-radius: 4px; color: var(--text); padding: 0.75rem; font-family: var(--sans); font-size: 0.95rem; }
+  .field-group input:focus, .field-group textarea:focus { border-color: var(--red); outline: none; }
+  
+  .live-script-box { background: var(--bg-3); border: 1px dashed var(--border-2); border-radius: 6px; padding: 1.5rem; position: sticky; top: 95px; }
+  .live-script-header { font-size: 0.8rem; font-weight: 700; color: var(--gold-bright); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; }
+  .live-script-content { min-height: 150px; font-size: 1rem; white-space: pre-wrap; color: var(--text); line-height: 1.6; }
+  .live-script-placeholder { color: var(--text-faint); font-style: italic; }
+  
+  /* Pro Tips Cards */
+  .tips-list { list-style: none; }
+  .tips-list li { margin-bottom: 1rem; padding-left: 1.5rem; position: relative; color: var(--text-dim); }
+  .tips-list li::before { content: "→"; position: absolute; left: 0; color: var(--red); font-weight: bold; }
+  .tips-list strong { color: var(--text); }
+  
+  /* Audio & Scoring Engine Terminal CSS */
+  .audio-sandbox { background: #111116; border: 1px solid var(--border); border-radius: 8px; padding: 2rem; margin-top: 2rem; }
+  .sandbox-ctrls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
+  
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--bg-4); border: 1px solid var(--border-2); color: var(--text); padding: 0.7rem 1.25rem; border-radius: 4px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
+  .btn:hover { background: var(--border-2); }
+  .btn-primary { background: var(--red); border-color: var(--red); color: #fff; }
+  .btn-primary:hover { background: var(--red-bright); border-color: var(--red-bright); }
+  .btn-accent { background: var(--gold-dim); border-color: rgba(201,168,76,0.3); color: var(--gold-bright); }
+  .btn-accent:hover { background: rgba(201,168,76,0.25); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  
+  .recording-indicator { display: none; align-items: center; gap: 0.5rem; background: rgba(204,0,0,0.15); border: 1px solid rgba(204,0,0,0.3); color: var(--red-bright); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: 700; animation: pulse 1.5s infinite; }
+  
+  .realtime-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1fr; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-2); padding: 1rem; margin-bottom: 1.5rem; text-align: center; }
+  .sub-metric { font-size: 1.3rem; font-weight: 700; color: var(--text); font-family: monospace; }
+  .sub-lbl { font-size: 0.7rem; color: var(--text-faint); text-transform: uppercase; margin-top: 0.2rem; font-weight: 600; }
+  
+  .transcript-area { background: #08080a; border: 1px solid var(--border); border-radius: 4px; padding: 1.25rem; min-height: 120px; font-family: var(--sans); color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6; position: relative; }
+  .transcript-area label { position: absolute; top: -10px; left: 15px; background: #08080a; padding: 0 6px; font-size: 0.7rem; color: var(--text-faint); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+  
+  /* AI Playbook Output Panel */
+  .ai-prompt-box { background: var(--bg-3); border: 1px solid var(--border-2); border-radius: 6px; padding: 1.5rem; display: none; }
+  .ai-prompt-box.active { display: block; animation: fadeIn 0.4s ease; }
+  .prompt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .prompt-header h4 { font-size: 0.85rem; font-weight: 700; color: var(--red-bright); text-transform: uppercase; letter-spacing: 1px; }
+  .prompt-body { background: #0d0d10; border: 1px solid var(--border); font-family: monospace; font-size: 0.85rem; color: #ced4da; padding: 1.2rem; border-radius: 4px; white-space: pre-wrap; max-height: 300px; overflow-y: auto; line-height: 1.5; }
+  
+  /* Alert / Banner System */
+  .banner-note { background: linear-gradient(90deg, rgba(201,168,76,0.1) 0%, transparent 100%); border-left: 3px solid var(--gold); padding: 1rem; border-radius: 0 4px 4px 0; margin-bottom: 1.5rem; font-size: 0.9rem; }
+  
+  /* Utilities & Animations */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+  .text-danger { color: var(--red-bright); }
+  .text-success { color: var(--green); }
+  .text-warn { color: var(--gold-bright); }
+  
+  /* Mobile Menu Button */
+  .mobile-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+  
+  /* Responsive Breakpoints */
+  @media (max-width: 992px) {
+    aside { display: none; }
+    main { margin-left: 0; padding: 1.5rem; }
+    .builder-grid { grid-template-columns: 1fr; }
+    .live-script-box { position: relative; top: 0; }
+    .grid-3 { grid-template-columns: 1fr; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <div class="logo-box">U</div>
+    <div class="logo-text">David Eccles <span>School of Business</span></div>
+  </div>
+  <div class="pill">MBA Career Coaching System</div>
+</header>
+
+<div class="container">
+  <aside>
+    <div class="nav-group-title">The Framework</div>
+    <ul>
+      <li><a href="#overview" data-nav="overview" class="active">Playbook Overview</a></li>
+      <li><a href="#blueprint" data-nav="blueprint">The 4-Part Blueprint</a></li>
+      <li><a href="#pro-tips" data-nav="pro-tips">Executive Pro-Tips</a></li>
+    </ul>
+    
+    <div class="nav-group-title">Interactive Training</div>
+    <ul>
+      <li><a href="#bank" data-nav="bank">Model Answer Bank</a></li>
+      <li><a href="#builder" data-nav="builder">Script Architecture Builder</a></li>
+      <li><a href="#sandbox" data-nav="sandbox">Live Speech Analytics</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    
+    <div class="hero" id="overview">
+      <div class="pill">Interview Screening Core Mastery</div>
+      <h1>The Executive Self-Introduction Playbook</h1>
+      <p>A strategic architecture for mastering "Tell Me About Yourself" at the start of high-stakes corporate, consulting, tech, and leadership development interviews. Turn an open-ended icebreaker into an immediate professional value-proposition statement.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="metric-card">
+        <div class="metric-val">60 - 90</div>
+        <div class="metric-lbl">Target Duration (Seconds)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">130 - 150</div>
+        <div class="metric-lbl">Optimal Delivery WPM</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">0</div>
+        <div class="metric-lbl">Unconscious Filler Words Allowed</div>
+      </div>
+    </div>
+
+    <section id="blueprint">
+      <h2><span>■</span> The 4-Part Narrative Blueprint</h2>
+      <p>An MBA self-introduction is not a historical recitation of your resume; it is a highly calibrated sales pitch. Your objective is to prove three foundational requirements: capability, genuine interest, and organizational alignment.</p>
+      
+      <div class="card">
+        <div class="template-segment">
+          <strong>1. Opening Gratitude &amp; Target Hook</strong>
+          <p>Break the ice with immediate posture, high energy, and appreciation. Explicitly state the target role or leadership program to anchor the conversation.</p>
+          <span class="text-faint">Example: "Thank you so much for taking the time to speak with me today. I'm incredibly excited to be discussing the Senior Product Manager track here at Adobe."</span>
+        </div>
+        
+        <div class="template-segment">
+          <strong>2. The Strong Headline (Professional Through-line)</strong>
+          <p>A concise, 1-2 sentence distillation identifying who you are professionally and what you are universally known for. This is your career anchor.</p>
+          <span class="text-faint">Example: "I am a data-driven strategist with 6 years of experience scaling cross-functional operations across tech and retail banking ecosystems, specializing in turning ambiguous problems into optimized product lines."</span>
+        </div>
+
+        <div class="template-segment">
+          <strong>3. The Highlight Reel (Greatest Hits, Not Box Set)</strong>
+          <p>Isolate 2 to 3 major, quantifiable achievements pulling from your career history, corporate promotions, or MBA experiential consulting projects. Do not read your history chronologically—give them the "Greatest Hits".</p>
+          <span class="text-faint">Example: "Most recently, at Zions Bank, I engineered an automated risk framework that captured $4M in high-value leakage and expedited corporate onboarding pipelines by 35%. Prior to my MBA, I scaled operational teams across distributed nodes."</span>
+        </div>
+
+        <div class="template-segment">
+          <strong>4. Future-Focused Alignment (Where You Thrive)</strong>
+          <p>Conclude by stating why this specific company represents the perfect synthesis of where you thrive and what you intend to build next. Implement the <em>Rule of 3</em>: have reasons ready for why this enterprise fits your trajectory.</p>
+          <span class="text-faint">Example: "I thrive at the intersection of scale and product innovation. This opportunity caught my eye because your team's expansion into enterprise AI cloud infrastructure aligns perfectly with my analytical execution toolkit and long-term passion."</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="pro-tips">
+      <h2><span>■</span> Executive Delivery &amp; Posture Pro-Tips</h2>
+      <div class="card">
+        <ul class="tips-list">
+          <li><strong>Put Daylight Between Your Words:</strong> High stakes trigger rapid speaking. Intentionally inject structural micro-pauses between your core conceptual frameworks.</li>
+          <li><strong>Eliminate Monotone Patterns:</strong> Monotone delivery conveys fatigue or lack of confidence. Smile slightly as you open to project charisma, natural pacing, and warmth.</li>
+          <li><strong>The Zoom/Remote Hack:</strong> Affix a physical sticky note to the top edge of your monitor near the lens that reads: <strong>S - L - O - W</strong>. Always maintain artificial eye contact with the camera element, not the grid video.</li>
+          <li><strong>The Phone Screen Stand-Up:</strong> If performing a live phone screen or audio-only evaluation, stand up. Your diaphragm opens, your voice projects higher command, and your physiological energy expands.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="bank">
+      <h2><span>■</span> Interactive Model Answer Bank</h2>
+      <p>Select your operational archetype below to examine professional, pre-formatted scripts built against the Eccles corporate evaluation criteria.</p>
+      
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="switchTab('switcher')">The Career Switcher</button>
+        <button class="filter-btn" onclick="switchTab('fasttrack')">The Fast Tracker / LDP</button>
+        <button class="filter-btn" onclick="switchTab">The Tech PM Explorer</button>
+      </div>
+
+      <div id="tpl-switcher" class="template-card active">
+        <div class="template-segment">
+          <strong>Gratitude &amp; Hook</strong>
+          <p>"Thank you for making time for this conversation. I'm genuinely energized to dive into the Corporate Strategy Manager position here at Intermountain Health."</p>
+        </div>
+        <div class="template-segment">
+          <strong>The Headline</strong>
+          <p>"I am an analytical operator known for breaking down complex structural challenges and translating them into clear corporate roadmaps. My throughline is optimization: finding hidden inefficiencies and designing frameworks to erase them."</p>
+        </div>
+        <div class="template-segment">
+          <strong>The Highlight Reel</strong>
+          <p>"Before pivot-funding my MBA, I spent four years in defense logistics engineering, managing asset assets valued at $18M and negotiating cross-theater operational plans. I recently engineered a consulting framework for an enterprise tech firm right here in Salt Lake City that shaved 14% off their processing times."</p>
+        </div>
+        <div class="template-segment">
+          <strong>Future Focus</strong>
+          <p>"I thrive when translating data models into real-world strategic decisions. I am looking to bring this structured engineering mindset to Intermountain, specifically helping scale your integrated value-delivery models."</p>
+        </div>
+      </div>
+
+      <div id="tpl-fasttrack" class="template-card">
+        <div class="template-segment">
+          <strong>Gratitude &amp; Hook</strong>
+          <p>"It’s a pleasure to connect with you today. I’ve been tracking your Executive Leadership Development Program closely, and I'm thrilled to be interviewing for a spot."</p>
+        </div>
+        <div class="template-segment">
+          <strong>The Headline</strong>
+          <p>"I am a people-first leader with a solid background in cross-functional governance and commercial strategy. I specialize in aligning business silos to drive revenue and develop high-potential talent pipelines."</p>
+        </div>
+        <div class="template-segment">
+          <strong>The Highlight Reel</strong>
+          <p>"At my prior firm, I was promoted twice ahead of standard schedules, ultimately commanding a regional team that turned around an underperforming line into a top-performing quadrant, capturing a $3.2M run-rate delta. Throughout my MBA at the University of Utah, I've deepened my focus on corporate finance applications and scalability metrics."</p>
+        </div>
+        <div class="template-segment">
+          <strong>Future Focus</strong>
+          <p>"This LDP stands out because it demands versatile operators who can pivot across operational environments. I am looking for an immersive platform where my leadership execution can drive visible, quarterly impact."</p>
+        </div>
+      </div>
+
+      <div id="tpl-tech" class="template-card">
+        <div class="template-segment">
+          <strong>Gratitude &amp; Hook</strong>
+          <p>"Thanks for the invite today. I'm incredibly excited to talk through the Technical Product Manager role on your Cloud Solutions architecture team."</p>
+        </div>
+        <div class="template-segment">
+          <strong>The Headline</strong>
+          <p>"I am a technical product mind sitting precisely at the crossroads of software architecture, business metrics, and UX empathy. I excel at translating ambiguous user pains into strict, executable developer roadmaps."</p>
+        </div>
+        <div class="template-segment">
+          <strong>The Highlight Reel</strong>
+          <p>"I spent four years as a full-stack engineer leading core API integrations. My standout moment was migrating a legacy pipeline to microservices, which slashed latency metrics by 40% and stabilized churn. During my Eccles MBA track, I've prioritized product monetization frameworks, customer discovery modeling, and algorithmic design."</p>
+        </div>
+        <div class="template-segment">
+          <strong>Future Focus</strong>
+          <p>"What your engineering team is constructing in the cloud workspace infrastructure fits exactly where my technical execution mechanics meet my strategic product design interest. I see this as a lane where I can contribute to shipping code and driving product margins immediately."</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="builder">
+      <h2><span>■</span> The Interactive Script Architecture Builder</h2>
+      <p>Draft your core professional variables below. As you write, your fragments will synthesize automatically into a cohesive master script inside the review block on the right.</p>
+      
+      <div class="card">
+        <div class="builder-grid">
+          <div>
+            <div class="field-group">
+              <label>1. Gratitude Hook <span>(Target Company &amp; Role)</span></label>
+              <input type="text" id="b-hook" placeholder="e.g., Thank you for the opportunity... I'm thrilled to interview for the..." oninput="updateScript()">
+            </div>
+            <div class="field-group">
+              <label>2. Your Core Headline <span>(Through-line)</span></label>
+              <textarea id="b-headline" rows="2" placeholder="e.g., I am a financial analyst known for... My professional throughline is..." oninput="updateScript()"></textarea>
+            </div>
+            <div class="field-group">
+              <label>3. The Highlight Reel <span>(2-3 Metrics/Accomplishments)</span></label>
+              <textarea id="b-reel" rows="3" placeholder="e.g., Over my career, I have... Most notably, I drove an efficiency improvement of..." oninput="updateScript()"></textarea>
+            </div>
+            <div class="field-group">
+              <label>4. Future Focus <span>(Where You Thrive / Why Them)</span></label>
+              <textarea id="b-future" rows="2" placeholder="e.g., I thrive when working on... I am looking to bring this exact drive to your team..." oninput="updateScript()"></textarea>
+            </div>
+          </div>
+          
+          <div class="live-script-box">
+            <div class="live-script-header">
+              <span>Generated Draft Master Script</span>
+              <button class="btn btn-accent" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="pushToSandbox()">Push to Live Sandbox ↓</button>
+            </div>
+            <div id="master-script-display" class="live-script-content"><span class="live-script-placeholder">Your compiled elevator pitch will stream here as you fill in the fields on the left. Verify flow, rhythm, and metric-density.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sandbox">
+      <h2><span>■</span> Live Audio Speech Analytics Sandbox</h2>
+      <p>Activate your native browser microphone engine to practice your self-introduction out loud. This terminal captures raw audio input, processes structural duration, calculates words-per-minute pacing metrics, and extracts filler speech traps in real time.</p>
+      
+      <div class="audio-sandbox">
+        <div class="banner-note">
+          <strong>Privacy Protocol:</strong> Audio streaming, speech analytics, and text processing run 100% locally within your secure client browser environment. No audio streams or transcripts are transmitted to remote servers.
+        </div>
+        
+        <div class="realtime-metrics">
+          <div>
+            <div id="m-time" class="sub-metric">00:00</div>
+            <div class="sub-lbl">Duration</div>
+          </div>
+          <div>
+            <div id="m-words" class="sub-metric">0</div>
+            <div class="sub-lbl">Word Count</div>
+          </div>
+          <div>
+            <div id="m-wpm" class="sub-metric">0</div>
+            <div class="sub-lbl">Pace (WPM)</div>
+          </div>
+          <div>
+            <div id="m-filler" class="sub-metric">0</div>
+            <div class="sub-lbl">Filler Words</div>
+          </div>
+        </div>
+
+        <div class="sandbox-ctrls">
+          <button id="btn-record" class="btn btn-primary" onclick="toggleRecording()">▶ Start Audio Practice</button>
+          <button id="btn-clear" class="btn" onclick="clearSandbox()">Reset Terminal</button>
+          <div id="rec-indicator" class="recording-indicator">
+            <span style="display:inline-block; width:8px; height:8px; background:var(--red-bright); border-radius:50%;"></span>
+            MICROPHONE CAPTURE ACTIVE
+          </div>
+        </div>
+
+        <div class="transcript-area">
+          <label>Real-Time Verbal Transcript Stream</label>
+          <div id="transcript-output" style="color: var(--text-dim);">Speak your script to generate a transcript...</div>
+        </div>
+
+        <div class="banner-note" id="pacing-feedback-banner" style="display:none; border-color: var(--red);">
+          <strong>Analytics System Alert:</strong> <span id="pacing-feedback-text"></span>
+        </div>
+
+        <div class="sandbox-ctrls" style="margin-top: 1.5rem;">
+          <button id="btn-compile" class="btn btn-accent" onclick="generateAiPrompt()" disabled>Assemble AI Evaluation Prompt</button>
+        </div>
+
+        <div id="ai-output-box" class="ai-prompt-box">
+          <div class="prompt-header">
+            <h4>[TMAY EVALUATION CORE INTERFACE — ECCLES MBA]</h4>
+            <button class="btn" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="copyAiPrompt()">Copy Coaching Prompt</button>
+          </div>
+          <div id="prompt-content-body" class="prompt-body"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  /* Navigation Highlighting Link Engine */
+  window.addEventListener('scroll', () => {
+    const sections = ['overview', 'blueprint', 'pro-tips', 'bank', 'builder', 'sandbox'];
+    let current = 'overview';
+    const scrollPos = window.scrollY + 140;
+    
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollPos) {
+        current = id;
+      }
+    });
+    
+    document.querySelectorAll('aside a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+    });
+  });
+
+  /* Tab Control logic for Answer Bank Archetypes */
+  function switchTab(archetype) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.template-card').forEach(card => card.classList.remove('active'));
+    
+    if (event && event.target) {
+      event.target.classList.add('active');
+    }
+    
+    if (archetype === 'switcher') document.getElementById('tpl-switcher').classList.add('active');
+    if (archetype === 'fasttrack') document.getElementById('tpl-fasttrack').classList.add('active');
+    if (archetype === 'tech') document.getElementById('tpl-tech').classList.add('active');
+  }
+
+  /* Structural Script Dynamic Compilation */
+  function updateScript() {
+    const hook = document.getElementById('b-hook').value.trim();
+    const headline = document.getElementById('b-headline').value.trim();
+    const reel = document.getElementById('b-reel').value.trim();
+    const future = document.getElementById('b-future').value.trim();
+    const display = document.getElementById('master-script-display');
+    
+    if (!hook && !headline && !reel && !future) {
+      display.innerHTML = '<span class="live-script-placeholder">Your compiled elevator pitch will stream here as you fill in the fields on the left. Verify flow, rhythm, and metric-density.</span>';
+      return;
+    }
+    
+    let combined = "";
+    if (hook) combined += hook + " ";
+    if (headline) combined += headline + "\n\n";
+    if (reel) combined += reel + "\n\n";
+    if (future) combined += future;
+    
+    display.textContent = combined;
+  }
+
+  function pushToSandbox() {
+    const text = document.getElementById('master-script-display').textContent;
+    if(text && !text.includes("Your compiled elevator pitch")) {
+      document.getElementById('transcript-output').textContent = text;
+      document.getElementById('btn-compile').disabled = false;
+      
+      // Calculate basic textual metrics
+      const words = text.split(/\s+/).filter(w => w.length > 0).length;
+      document.getElementById('m-words').textContent = words;
+      
+      // Simulate default stats based on normal pace
+      document.getElementById('m-time').textContent = "00:45";
+      document.getElementById('m-wpm').textContent = "140";
+      
+      // Look for manual fillers
+      const matchFillers = text.match(/\b(um|uh|like|so|you know|basically)\b/gi);
+      document.getElementById('m-filler').textContent = matchFillers ? matchFillers.length : 0;
+      
+      document.getElementById('sandbox').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  /* Audio Recognition & Processing Pipeline Engine */
+  let recognition;
+  let isRecording = false;
+  let startTime;
+  let timerInterval;
+  let totalWordCount = 0;
+  let fillerCount = 0;
+  let accumulatedTranscript = "";
+
+  const fillerWordsList = ['um', 'uh', 'like', 'so', 'you know', 'basically'];
+
+  if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = function() {
+      isRecording = true;
+      startTime = Date.now();
+      document.getElementById('btn-record').textContent = "■ Stop & Process Speech";
+      document.getElementById('btn-record').classList.remove('btn-primary');
+      document.getElementById('rec-indicator').style.display = 'inline-flex';
+      
+      timerInterval = setInterval(updateTimerAndMetrics, 500);
+    };
+
+    recognition.onresult = function(event) {
+      let interimTranscript = '';
+      let finalTranscript = '';
+
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript + ' ';
+        } else {
+          interimTranscript += event.results[i][0].transcript;
+        }
+      }
+
+      if (finalTranscript) {
+        accumulatedTranscript += finalTranscript;
+        analyzeFillers(finalTranscript);
+      }
+      
+      const out = document.getElementById('transcript-output');
+      out.textContent = accumulatedTranscript + interimTranscript;
+      out.style.color = "var(--text)";
+      
+      // Real-time quick word check
+      const currentText = out.textContent;
+      const wordsArr = currentText.split(/\s+/).filter(w => w.length > 0);
+      totalWordCount = wordsArr.length;
+      document.getElementById('m-words').textContent = totalWordCount;
+    };
+
+    recognition.onerror = function(event) {
+      console.error("Speech pipeline issue: ", event.error);
+      if(event.error === 'not-allowed') {
+        alert("Microphone permission denied. Please allow mic access or type/paste your practice script directly into the transcript stream area.");
+      }
+    };
+
+    recognition.onend = function() {
+      clearInterval(timerInterval);
+      isRecording = false;
+      document.getElementById('btn-record').textContent = "▶ Start Audio Practice";
+      document.getElementById('btn-record').classList.add('btn-primary');
+      document.getElementById('rec-indicator').style.display = 'none';
+      document.getElementById('btn-compile').disabled = false;
+      
+      // Final metric processing execution
+      evaluatePacingAndMetrics();
+    };
+  } else {
+    // Graceful fallback for non-supported browsers
+    document.getElementById('btn-record').disabled = true;
+    document.getElementById('btn-record').textContent = "Speech API Unusable";
+    document.getElementById('transcript-output').innerHTML = '<span class="text-warn">Audio capture is unavailable on this browser framework. Please manually paste or type your interview introduction script right here to unlock your AI Coach metrics.</span>';
+    document.getElementById('transcript-output').contentEditable = true;
+    document.getElementById('transcript-output').addEventListener('input', function() {
+      const txt = this.textContent;
+      const words = txt.split(/\s+/).filter(w => w.length > 0).length;
+      document.getElementById('m-words').textContent = words;
+      document.getElementById('btn-compile').disabled = words === 0;
+    });
+  }
+
+  function toggleRecording() {
+    if (!recognition) return;
+    if (isRecording) {
+      recognition.stop();
+    } else {
+      accumulatedTranscript = "";
+      fillerCount = 0;
+      totalWordCount = 0;
+      document.getElementById('m-filler').textContent = "0";
+      document.getElementById('m-words').textContent = "0";
+      document.getElementById('m-wpm').textContent = "0";
+      document.getElementById('pacing-feedback-banner').style.display = 'none';
+      document.getElementById('ai-output-box').classList.remove('active');
+      recognition.start();
+    }
+  }
+
+  function updateTimerAndMetrics() {
+    const elapsedMs = Date.now() - startTime;
+    const totalSecs = Math.floor(elapsedMs / 1000);
+    const mins = Math.floor(totalSecs / 60).toString().padStart(2, '0');
+    const secs = (totalSecs % 60).toString().padStart(2, '0');
+    
+    document.getElementById('m-time').textContent = `${mins}:${secs}`;
+    
+    if (totalSecs > 5 && totalWordCount > 2) {
+      const wpm = Math.round((totalWordCount / totalSecs) * 60);
+      document.getElementById('m-wpm').textContent = wpm;
+      
+      const wpmEl = document.getElementById('m-wpm');
+      if (wpm > 160) { wpmEl.className = "sub-metric text-danger"; }
+      else if (wpm < 110) { wpmEl.className = "sub-metric text-warn"; }
+      else { wpmEl.className = "sub-metric text-success"; }
+    }
+  }
+
+  function analyzeFillers(textChunk) {
+    const cleanTokens = textChunk.toLowerCase().split(/[^a-zA-Z']+/);
+    cleanTokens.forEach(token => {
+      if (fillerWordsList.includes(token)) {
+        fillerCount++;
+      }
+    });
+    // Check multi-word filler instances like "you know"
+    const textLower = textChunk.toLowerCase();
+    const countYouKnow = (textLower.match(/you know/g) || []).length;
+    // Offset standard iteration logic if caught in chunks
+    fillerCount += countYouKnow;
+    
+    document.getElementById('m-filler').textContent = fillerCount;
+  }
+
+  function evaluatePacingAndMetrics() {
+    const elapsedMs = Date.now() - startTime;
+    const totalSecs = Math.floor(elapsedMs / 1000);
+    if (totalSecs === 0) return;
+    
+    const finalWpm = Math.round((totalWordCount / totalSecs) * 60);
+    document.getElementById('m-wpm').textContent = finalWpm;
+    
+    const banner = document.getElementById('pacing-feedback-banner');
+    const textContainer = document.getElementById('pacing-feedback-text');
+    banner.style.display = 'block';
+    
+    let report = "";
+    if (totalSecs > 90) {
+      report += `Your self-introduction ran for ${totalSecs} seconds. This breaks executive attention span limits. Cut your lower-impact historical descriptions down. `;
+    } else if (totalSecs < 45) {
+      report += `Your delivery ended in a rapid ${totalSecs} seconds. You risk leaving critical value achievements unsaid. Expand on your Highlight Reel. `;
+    } else {
+      report += `Excellent timing profile! Your speech completed perfectly inside the ${totalSecs}-second strategic target lane. `;
+    }
+    
+    if (finalWpm > 160) {
+      report += `Your pacing calculated at an elevated ${finalWpm} WPM. You are rushing through crucial data points. Intentionally inject daylight and micro-pauses between your sentences.`;
+      banner.style.borderColor = "var(--red)";
+    } else if (finalWpm < 110) {
+      report += `Your pace flagged at ${finalWpm} WPM. Ensure your delivery stays authoritative, engaged, energetic, and lacks heavy dead air gaps.`;
+      banner.style.borderColor = "var(--gold)";
+    } else {
+      report += `Fantastic executive pacing tempo hitting ${finalWpm} WPM. This matches elite corporate presentation speed guidelines.`;
+      banner.style.borderColor = "var(--green)";
+    }
+    
+    textContainer.textContent = report;
+  }
+
+  function clearSandbox() {
+    document.getElementById('m-time').textContent = "00:00";
+    document.getElementById('m-words').textContent = "0";
+    document.getElementById('m-wpm').textContent = "0";
+    document.getElementById('m-filler').textContent = "0";
+    document.getElementById('transcript-output').textContent = "Speak your script to generate a transcript...";
+    document.getElementById('transcript-output').style.color = "var(--text-faint)";
+    document.getElementById('pacing-feedback-banner').style.display = 'none';
+    document.getElementById('ai-output-box').classList.remove('active');
+    document.getElementById('btn-compile').disabled = true;
+    accumulatedTranscript = "";
+    fillerCount = 0;
+    totalWordCount = 0;
+  }
+
+  /* Core System Integration Prompt Compiler Engine */
+  function generateAiPrompt() {
+    const duration = document.getElementById('m-time').textContent;
+    const wordCount = document.getElementById('m-words').textContent;
+    const wpm = document.getElementById('m-wpm').textContent;
+    const fillers = document.getElementById('m-filler').textContent;
+    const transcript = document.getElementById('transcript-output').textContent;
+    
+    const macroPrompt = `You are the Elite AI Interview Coach for the University of Utah David Eccles School of Business. 
+Evaluate my raw verbal transcript for the critical "Tell Me About Yourself" introductory question against our strict executive coaching framework.
+
+STUDENT RUN PERFORMANCE METRICS:
+- Recorded Practice Duration: ${duration}
+- Total Word Count: ${wordCount}
+- Pacing Velocity: ${wpm} Words Per Minute
+- Unconscious Filler Word Count: ${fillers}
+
+VERBAL TRANSCRIPT TO EVALUATE:
+"${transcript}"
+
+CRITICAL INSTRUCTIONS FOR SCORING AND GRADING:
+Score each of the following 5 dimensions on a strict scale from 1 (Unacceptable) to 5 (Executive Presentation Fit). Provide a concise, single-sentence strategic justification for each score based directly on evidence within my transcript.
+
+THE 5 EVALUATION DIMENSIONS:
+1. Gratitude & Target Professional Hook: Did I open with posture, thank the team, and explicitly name the target organization or specific leadership pipeline?
+2. Narrative Through-Line / Headline: Is there a clear definition of who I am professionally and what I am universally known for?
+3. The Highlight Reel (Greatest Hits): Did I deploy 2-3 data-driven, quantifiable accomplishments instead of reading a chronological biography?
+4. Future-Focused Alignment: Did I establish a compelling case for why this business entity represents the perfect synthesis of where I thrive?
+5. Delivery, Pacing & Mechanics: Assess my performance metrics (Target: 60-90 seconds, 130-150 WPM, zero fillers).
+
+YOUR SYSTEM OUTPUT FORMAT REQUIREMENTS:
+You must strictly follow this exact layout architecture without deviation. Do not include introductory conversational pleasantries before your rubric.
+
+**What Worked**
+[Detail 1-2 distinct strengths — explicitly cite words from the transcript text, not generic praise]
+
+**Top 2 Improvements**
+1. [Identify the most critical narrative, structural, or data gap versus a model answer + provide an actionable, scripted fix showing me exactly what to say]
+2. [Identify the second gap + provide an explicit actionable script fix]
+
+**Power Move**
+[Provide one advanced corporate communication technique or high-impact narrative re-frame that would instantly elevate this introduction from good to exceptional]
+
+**Filler Word Note**
+[Only include this specific subsection if filler words were flagged or detected in the performance dashboard, detailing how to clear the vocal path]`;
+
+    document.getElementById('prompt-content-body').textContent = macroPrompt;
+    document.getElementById('ai-output-box').classList.add('active');
+    document.getElementById('ai-output-box').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function copyAiPrompt() {
+    const txt = document.getElementById('prompt-content-body').textContent;
+    navigator.clipboard.writeText(txt).then(() => {
+      alert("Eccles Master Coaching Prompt successfully copied to clipboard! Paste this macro into ChatGPT or Gemini to receive your instant executive scorecard feedback.");
+    });
+  }
+</script>
+
+</body>
+</html>
