@@ -1,4 +1,4 @@
-# 🏛️ David Eccles School of Business · MBA Career Coaching System
+# David Eccles School of Business · MBA Career Coaching System
 ## Executive Self-Introduction Playbook (TMAY Mastery)
 
 This repository contains the source code and documentation for the **Interactive Executive Self-Introduction Playbook**. Custom-calibrated for full-time MBA students and working professionals at the University of Utah David Eccles School of Business, this platform transforms the standard, open-ended interview icebreaker (“*Tell me about yourself*”) into a highly structured, margin-focused professional sales pitch.
