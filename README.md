@@ -7,7 +7,7 @@ This repository contains the source code and documentation for the **Interactive
 
 ## Live Link
 
-[https://coryjburk.github.io/tmay/]
+[Intv Playbook – TMAY (vC)](https://coryjburk.github.io/tmay/)
 
 ---
 
