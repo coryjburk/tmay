@@ -5,9 +5,7 @@ This repository contains the source code and documentation for the **Interactive
 
 ---
 
-## Live Link
-
-[Intv Playbook – TMAY (vC)](https://coryjburk.github.io/tmay/)
+## **▶ Live tool:** **[Intv Playbook – TMAY (vC)](https://coryjburk.github.io/tmay/)**
 
 ---
 
@@ -64,3 +62,8 @@ Utilizes the Web Speech Recognition API to monitor performance locally within th
 
 ## 🤖 The AI Coaching Integration Protocol
 The platform bridges raw vocal practice with precise coaching insights via a copy-paste feedback macro prompt.
+
+---
+
+_Developed by Cory Burk, Senior Manager, Program Management · Full-Time MBA Program · David Eccles School of Business.
+© 2026 University of Utah, David Eccles School of Business. All rights reserved._
