@@ -4,12 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TMAY Interview Playbook · Full-Time MBA Program · David Eccles School of Business</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
     --bg: #0d0d10; --bg-2: #15151a; --bg-3: #1c1c23; --bg-4: #23232b;
     --border: #2b2b34; --border-2: #3a3a45;
     --text: #ededf2; --text-dim: #a4a4b0; --text-faint: #6c6c78;
-    --red: #CC0000; --red-bright: #ff2e2e; --red-dim: rgba(204,0,0,.14); --red-glow: rgba(204,0,0,.4);
+    --red: #CC0000; --red-bright: #ff2e2e; --red-dim: rgba(204,0,0,.14);
     --gold: #c9a84c; --gold-bright: #e3c876; --gold-dim: rgba(201,168,76,.13);
     --green: #3fb950; --green-dim: rgba(63,185,80,.13);
     --serif: "Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
@@ -18,33 +19,30 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; padding-bottom: 60px; }
 
-  /* Layout Structures */
-  .container { display: flex; min-height: 100vh; position: relative; }
-
-  /* Sidebar Sticky Navigation */
-  aside { width: 300px; background: var(--bg-2); border-right: 1px solid var(--border); position: fixed; top: 70px; bottom: 0; left: 0; overflow-y: auto; padding: 2rem 1.5rem; z-index: 90; }
-  main { flex: 1; margin-left: 300px; padding: 2.5rem 3rem; margin-top: 70px; max-width: 1200px; }
-
-  /* Header Styles */
+  /* Header */
   header { height: 70px; background: rgba(13,13,16,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
   .logo-area { display: flex; align-items: center; gap: 0.75rem; }
   .logo-box { background: var(--red); color: #fff; font-weight: 900; font-size: 1.1rem; padding: 0.3rem 0.6rem; border-radius: 2px; letter-spacing: -0.5px; }
   .logo-text { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; letter-spacing: 0.5px; }
   .logo-text span { color: var(--gold); font-family: var(--sans); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-left: 6px; border-left: 1px solid var(--border-2); padding-left: 6px; }
+  .pill { display: inline-block; background: var(--gold-dim); color: var(--gold-bright); font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 50px; border: 1px solid rgba(201,168,76,0.2); text-transform: uppercase; letter-spacing: 1px; }
 
-  /* Sidebar Links */
-  .nav-group-title { font-size: 0.7rem; font-weight: 700; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.75rem; margin-top: 1.5rem; }
-  .nav-group-title:first-child { margin-top: 0; }
-  aside ul { list-style: none; }
-  aside li { margin-bottom: 0.25rem; }
-  aside a { display: block; padding: 0.5rem 0.75rem; color: var(--text-dim); text-decoration: none; font-size: 0.9rem; border-radius: 4px; transition: 0.2s ease; }
-  aside a:hover { background: var(--bg-3); color: var(--text); }
-  aside a.active { background: var(--red-dim); color: var(--red-bright); font-weight: 600; border-left: 2px solid var(--red); border-radius: 0 4px 4px 0; }
+  /* Primary Tab Bar (Pitch Coach pattern) */
+  .tab-bar { position: fixed; top: 70px; left: 0; right: 0; z-index: 95; background: var(--bg-2); border-bottom: 1px solid var(--border); display: flex; gap: 0.25rem; padding: 0 2rem; overflow-x: auto; }
+  .tab-btn { background: none; border: none; border-bottom: 3px solid transparent; color: var(--text-dim); padding: 0.9rem 1.1rem; font-size: 0.9rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.2s; font-family: var(--sans); }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--red-bright); border-bottom-color: var(--red); }
+  .tab-btn .step-num { color: var(--text-faint); font-weight: 700; margin-right: 4px; }
+  .tab-btn.active .step-num { color: var(--red-bright); }
+
+  main { padding: 2.5rem 3rem; margin-top: 122px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
 
   /* Hero Banner */
   .hero { background: linear-gradient(135deg, var(--bg-2) 0%, #1e1114 100%); border: 1px solid var(--border); border-radius: 8px; padding: 3rem; margin-bottom: 2.5rem; position: relative; overflow: hidden; }
   .hero::after { content: ''; position: absolute; top: -50%; right: -20%; width: 350px; height: 350px; background: var(--red); filter: blur(140px); opacity: 0.12; pointer-events: none; }
-  .pill { display: inline-block; background: var(--gold-dim); color: var(--gold-bright); font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 50px; border: 1px solid rgba(201,168,76,0.2); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+  .hero .pill { margin-bottom: 1rem; }
   .hero h1 { font-family: var(--serif); font-size: 2.5rem; font-weight: 400; line-height: 1.15; margin-bottom: 1rem; }
   .hero p { color: var(--text-dim); font-size: 1.1rem; max-width: 800px; }
 
@@ -54,22 +52,19 @@
   .metric-val { font-family: var(--serif); font-size: 2rem; color: var(--gold-bright); font-weight: 400; margin-bottom: 0.25rem; }
   .metric-lbl { font-size: 0.8rem; color: var(--text-dim); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
-  /* Framework Components */
-  section { scroll-margin-top: 90px; margin-bottom: 4rem; }
+  section { margin-bottom: 4rem; }
   h2 { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
   h2 span { color: var(--red); font-size: 1.2rem; }
   p { margin-bottom: 1.25rem; color: var(--text-dim); }
 
   .card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px; padding: 2rem; margin-bottom: 1.5rem; }
-  .card h3 { font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; }
 
-  /* Interactive Section Tabs / Templates Toggle */
+  /* Archetype filter buttons */
   .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; overflow-x: auto; }
   .filter-btn { background: var(--bg-3); border: 1px solid var(--border); color: var(--text-dim); padding: 0.5rem 1rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; white-space: nowrap; }
   .filter-btn:hover { background: var(--bg-4); color: var(--text); }
   .filter-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
 
-  /* Template Display Cards */
   .template-card { display: none; background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px; padding: 2rem; margin-bottom: 1.5rem; position: relative; }
   .template-card.active { display: block; animation: fadeIn 0.3s ease; }
   .template-segment { margin-bottom: 1.25rem; padding-left: 1rem; border-left: 2px solid var(--border-2); }
@@ -80,35 +75,35 @@
   .field-group { margin-bottom: 1.25rem; }
   .field-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
   .field-group label span { color: var(--text-faint); text-transform: none; font-weight: 400; margin-left: 5px; }
-  .field-group input, .field-group textarea { width: 100%; background: var(--bg-3); border: 1px solid var(--border); border-radius: 4px; color: var(--text); padding: 0.75rem; font-family: var(--sans); font-size: 0.95rem; }
-  .field-group input:focus, .field-group textarea:focus { border-color: var(--red); outline: none; }
+  .field-group input, .field-group textarea, .field-group select { width: 100%; background: var(--bg-3); border: 1px solid var(--border); border-radius: 4px; color: var(--text); padding: 0.75rem; font-family: var(--sans); font-size: 0.95rem; }
+  .field-group input:focus, .field-group textarea:focus, .field-group select:focus { border-color: var(--red); outline: none; }
 
-  .live-script-box { background: var(--bg-3); border: 1px dashed var(--border-2); border-radius: 6px; padding: 1.5rem; position: sticky; top: 95px; }
+  .live-script-box { background: var(--bg-3); border: 1px dashed var(--border-2); border-radius: 6px; padding: 1.5rem; }
   .live-script-header { font-size: 0.8rem; font-weight: 700; color: var(--gold-bright); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; }
   .live-script-content { min-height: 150px; font-size: 1rem; white-space: pre-wrap; color: var(--text); line-height: 1.6; }
   .live-script-placeholder { color: var(--text-faint); font-style: italic; }
 
-  /* Pro Tips Cards */
   .tips-list { list-style: none; }
   .tips-list li { margin-bottom: 1rem; padding-left: 1.5rem; position: relative; color: var(--text-dim); }
   .tips-list li::before { content: "→"; position: absolute; left: 0; color: var(--red); font-weight: bold; }
   .tips-list strong { color: var(--text); }
 
-  /* Audio & Scoring Engine Terminal CSS */
+  /* Audio Sandbox */
   .audio-sandbox { background: #111116; border: 1px solid var(--border); border-radius: 8px; padding: 2rem; margin-top: 2rem; }
   .sandbox-ctrls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
 
-  .btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--bg-4); border: 1px solid var(--border-2); color: var(--text); padding: 0.7rem 1.25rem; border-radius: 4px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--bg-4); border: 1px solid var(--border-2); color: var(--text); padding: 0.7rem 1.25rem; border-radius: 4px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; font-family: var(--sans); }
   .btn:hover { background: var(--border-2); }
   .btn-primary { background: var(--red); border-color: var(--red); color: #fff; }
   .btn-primary:hover { background: var(--red-bright); border-color: var(--red-bright); }
   .btn-accent { background: var(--gold-dim); border-color: rgba(201,168,76,0.3); color: var(--gold-bright); }
   .btn-accent:hover { background: rgba(201,168,76,0.25); }
   .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-danger { background: transparent; border-color: rgba(204,0,0,0.4); color: var(--red-bright); }
+  .btn-danger:hover { background: var(--red-dim); }
 
   .recording-indicator { display: none; align-items: center; gap: 0.5rem; background: rgba(204,0,0,0.15); border: 1px solid rgba(204,0,0,0.3); color: var(--red-bright); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: 700; animation: pulse 1.5s infinite; }
 
-  /* FIX: gap was "1fr" (invalid CSS unit for gap) — corrected to 1rem */
   .realtime-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-2); padding: 1rem; margin-bottom: 1.5rem; text-align: center; }
   .sub-metric { font-size: 1.3rem; font-weight: 700; color: var(--text); font-family: monospace; }
   .sub-lbl { font-size: 0.7rem; color: var(--text-faint); text-transform: uppercase; margin-top: 0.2rem; font-weight: 600; }
@@ -116,44 +111,62 @@
   .transcript-area { background: #08080a; border: 1px solid var(--border); border-radius: 4px; padding: 1.25rem; min-height: 120px; font-family: var(--sans); color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6; position: relative; }
   .transcript-area label { position: absolute; top: -10px; left: 15px; background: #08080a; padding: 0 6px; font-size: 0.7rem; color: var(--text-faint); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
 
-  /* AI Playbook Output Panel */
   .ai-prompt-box { background: var(--bg-3); border: 1px solid var(--border-2); border-radius: 6px; padding: 1.5rem; display: none; }
   .ai-prompt-box.active { display: block; animation: fadeIn 0.4s ease; }
-  .prompt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .prompt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
   .prompt-header h4 { font-size: 0.85rem; font-weight: 700; color: var(--red-bright); text-transform: uppercase; letter-spacing: 1px; }
   .prompt-body { background: #0d0d10; border: 1px solid var(--border); font-family: monospace; font-size: 0.85rem; color: #ced4da; padding: 1.2rem; border-radius: 4px; white-space: pre-wrap; max-height: 300px; overflow-y: auto; line-height: 1.5; }
 
-  /* Alert / Banner System */
   .banner-note { background: linear-gradient(90deg, rgba(201,168,76,0.1) 0%, transparent 100%); border-left: 3px solid var(--gold); padding: 1rem; border-radius: 0 4px 4px 0; margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+  /* Feedback tab */
+  .feedback-input { width: 100%; min-height: 220px; background: var(--bg-3); border: 1px solid var(--border); border-radius: 4px; color: var(--text); padding: 1rem; font-family: var(--sans); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem; }
+  .feedback-input:focus { border-color: var(--red); outline: none; }
+  .score-input-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+  .score-input-row input { width: 110px; background: var(--bg-3); border: 1px solid var(--border); border-radius: 4px; color: var(--text); padding: 0.6rem; font-size: 1.1rem; font-family: monospace; text-align: center; }
+  .score-input-row input:focus { border-color: var(--red); outline: none; }
+  .score-hint { font-size: 0.8rem; color: var(--text-faint); margin-bottom: 1.25rem; }
+  .pending-run-chip { display: inline-block; background: var(--bg-3); border: 1px solid var(--border-2); border-radius: 4px; padding: 0.5rem 0.9rem; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.25rem; }
+  .save-confirm { color: var(--green); font-weight: 700; display: none; margin-left: 12px; }
+
+  /* History tab */
+  .chart-container { background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .legend-box { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem; font-size: 0.8rem; color: var(--text-dim); }
+  .legend-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+  .chart-empty { color: var(--text-faint); font-style: italic; padding: 1.5rem; text-align: center; }
+  .storage-meter-wrap { margin-bottom: 1.5rem; }
+  .storage-meter-bar { height: 8px; background: var(--bg-3); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-top: 0.35rem; }
+  .storage-meter-fill { height: 100%; background: var(--green); width: 0%; transition: width 0.3s; }
+  .storage-meter-text { font-size: 0.78rem; color: var(--text-faint); }
+  .history-toolbar { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .saved-item { background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.25rem; position: relative; }
+  .saved-score-badge { position: absolute; top: 1.25rem; right: 1.25rem; background: var(--red-dim); border: 1px solid rgba(204,0,0,0.35); color: var(--red-bright); font-weight: 700; font-family: monospace; padding: 0.35rem 0.7rem; border-radius: 4px; font-size: 0.95rem; }
+  .saved-date { font-size: 0.8rem; color: var(--text-faint); margin-bottom: 0.75rem; }
+  .saved-track { display: inline-block; color: #0d0d10; font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 0.15rem 0.55rem; border-radius: 50px; margin-left: 8px; }
+  .saved-item strong { color: var(--gold-bright); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin: 0.75rem 0 0.25rem; }
+  .saved-item .body-text { font-size: 0.9rem; color: var(--text-dim); white-space: pre-wrap; margin-bottom: 0; }
+  .delete-entry-btn { margin-top: 1rem; background: none; border: 1px solid var(--border-2); color: var(--text-faint); padding: 0.35rem 0.75rem; border-radius: 4px; font-size: 0.78rem; cursor: pointer; }
+  .delete-entry-btn:hover { border-color: rgba(204,0,0,0.4); color: var(--red-bright); }
+  .privacy-note { font-size: 0.8rem; color: var(--text-faint); }
 
   /* Footer */
   .site-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; color: var(--text-faint); line-height: 1.7; }
 
-  /* Utilities & Animations */
   @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
   .text-danger { color: var(--red-bright); }
   .text-success { color: var(--green); }
   .text-warn { color: var(--gold-bright); }
 
-  /* Mobile Menu Button & Drawer */
-  .mobile-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; padding: 0.25rem 0.5rem; }
-  .nav-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 95; opacity: 0; transition: opacity 0.25s ease; }
-  .nav-backdrop.visible { opacity: 1; }
-
-  /* Responsive Breakpoints */
   @media (max-width: 992px) {
-    /* FIX: sidebar previously vanished entirely on mobile (display:none, no menu
-       button wired). It is now a slide-in drawer behind a hamburger toggle. */
-    aside { transform: translateX(-100%); transition: transform 0.25s ease; z-index: 96; box-shadow: 4px 0 24px rgba(0,0,0,0.5); }
-    aside.open { transform: translateX(0); }
-    .mobile-toggle { display: block; }
-    .nav-backdrop.active { display: block; }
-    .pill { display: none; } /* header pill crowds the hamburger on narrow screens */
-    main { margin-left: 0; padding: 1.5rem; }
+    main { padding: 1.5rem; margin-top: 118px; }
     .builder-grid { grid-template-columns: 1fr; }
-    .live-script-box { position: relative; top: 0; }
     .grid-3 { grid-template-columns: 1fr; gap: 1rem; }
+    .pill { display: none; }
+    .tab-bar { padding: 0 0.75rem; }
+    .tab-btn { padding: 0.8rem 0.7rem; font-size: 0.82rem; }
+    .hero { padding: 1.75rem; }
+    .hero h1 { font-size: 1.8rem; }
   }
 </style>
 </head>
@@ -165,34 +178,24 @@
     <div class="logo-text">Full-Time MBA Program <span>David Eccles School of Business</span></div>
   </div>
   <div class="pill">MBA Career Coaching System</div>
-  <button class="mobile-toggle" aria-label="Open navigation menu" aria-expanded="false" onclick="toggleMobileNav()">☰</button>
 </header>
 
-<div id="nav-backdrop" class="nav-backdrop" onclick="closeMobileNav()"></div>
+<nav class="tab-bar" role="tablist" aria-label="Playbook workflow">
+  <button class="tab-btn active" id="tab-guide" role="tab" aria-selected="true" aria-controls="panel-guide" onclick="showTab('guide', this)"><span class="step-num">1</span>TMAY Guide</button>
+  <button class="tab-btn" id="tab-record" role="tab" aria-selected="false" aria-controls="panel-record" onclick="showTab('record', this)"><span class="step-num">2</span>Record &amp; Prompt</button>
+  <button class="tab-btn" id="tab-feedback" role="tab" aria-selected="false" aria-controls="panel-feedback" onclick="showTab('feedback', this)"><span class="step-num">3</span>Paste Feedback</button>
+  <button class="tab-btn" id="tab-history" role="tab" aria-selected="false" aria-controls="panel-history" onclick="showTab('history', this)"><span class="step-num">4</span>Saved History</button>
+</nav>
 
-<div class="container">
-  <aside>
-    <div class="nav-group-title">The Framework</div>
-    <ul>
-      <li><a href="#overview" data-nav="overview" class="active">Playbook Overview</a></li>
-      <li><a href="#blueprint" data-nav="blueprint">The 4-Part Blueprint</a></li>
-      <li><a href="#pro-tips" data-nav="pro-tips">Executive Pro-Tips</a></li>
-    </ul>
+<main>
 
-    <div class="nav-group-title">Interactive Training</div>
-    <ul>
-      <li><a href="#bank" data-nav="bank">Model Answer Bank</a></li>
-      <li><a href="#builder" data-nav="builder">Script Architecture Builder</a></li>
-      <li><a href="#sandbox" data-nav="sandbox">Live Speech Analytics</a></li>
-    </ul>
-  </aside>
+  <!-- ============ TAB 1: GUIDE ============ -->
+  <div id="panel-guide" class="tab-panel active" role="tabpanel" aria-labelledby="tab-guide">
 
-  <main>
-
-    <div class="hero" id="overview">
-      <div class="pill">Interview Screening Core Mastery</div>
+    <div class="hero">
+      <div class="pill" style="display:inline-block;">Interview Screening Core Mastery</div>
       <h1>The Executive Self-Introduction Playbook</h1>
-      <p>A strategic architecture for mastering "Tell Me About Yourself" at the start of high-stakes corporate, consulting, tech, and leadership development interviews. Turn an open-ended icebreaker into an immediate professional value-proposition statement.</p>
+      <p>A strategic architecture for mastering "Tell Me About Yourself" at the start of high-stakes corporate, consulting, tech, and leadership development interviews. Turn an open-ended icebreaker into an immediate professional value-proposition statement. Practice in the Record &amp; Prompt tab, get an AI coach score, and track your progress over time.</p>
     </div>
 
     <div class="grid-3">
@@ -210,38 +213,38 @@
       </div>
     </div>
 
-    <section id="blueprint">
+    <section>
       <h2><span>■</span> The 4-Part Narrative Blueprint</h2>
-      <p>An MBA self-introduction is not a historical recitation of your resume; it is a highly calibrated sales pitch. Your objective is to prove three foundational requirements: capability, genuine interest, and organizational alignment.</p>
+      <p>An MBA self-introduction is not a historical recitation of your resume; it is a highly calibrated sales pitch. Your objective is to prove three foundational requirements: capability, genuine interest, and organizational alignment. The AI coach scores each part below — the Headline, Highlight Reel, and Future Focus carry 30 points each; the Opening Hook carries 10.</p>
 
       <div class="card">
         <div class="template-segment">
-          <strong>1. Opening Gratitude &amp; Target Hook</strong>
+          <strong>1. Opening Gratitude &amp; Target Hook — 10 pts</strong>
           <p>Break the ice with immediate posture, high energy, and appreciation. Explicitly state the target role or leadership program to anchor the conversation.</p>
           <span class="text-faint">Example: "Thank you so much for taking the time to speak with me today. I'm incredibly excited to be discussing the Senior Product Manager track here at Adobe."</span>
         </div>
 
         <div class="template-segment">
-          <strong>2. The Strong Headline (Professional Through-line)</strong>
+          <strong>2. The Strong Headline (Professional Through-line) — 30 pts</strong>
           <p>A concise, 1-2 sentence distillation identifying who you are professionally and what you are universally known for. This is your career anchor.</p>
           <span class="text-faint">Example: "I am a data-driven strategist with 6 years of experience scaling cross-functional operations across tech and retail banking ecosystems, specializing in turning ambiguous problems into optimized product lines."</span>
         </div>
 
         <div class="template-segment">
-          <strong>3. The Highlight Reel (Greatest Hits, Not Box Set)</strong>
+          <strong>3. The Highlight Reel (Greatest Hits, Not Box Set) — 30 pts</strong>
           <p>Isolate 2 to 3 major, quantifiable achievements pulling from your career history, corporate promotions, or MBA experiential consulting projects. Do not read your history chronologically—give them the "Greatest Hits".</p>
           <span class="text-faint">Example: "Most recently, at Zions Bank, I engineered an automated risk framework that captured $4M in high-value leakage and expedited corporate onboarding pipelines by 35%. Prior to my MBA, I scaled operational teams across distributed nodes."</span>
         </div>
 
         <div class="template-segment">
-          <strong>4. Future-Focused Alignment (Where You Thrive)</strong>
+          <strong>4. Future-Focused Alignment (Where You Thrive) — 30 pts</strong>
           <p>Conclude by stating why this specific company represents the perfect synthesis of where you thrive and what you intend to build next. Implement the <em>Rule of 3</em>: have reasons ready for why this enterprise fits your trajectory.</p>
           <span class="text-faint">Example: "I thrive at the intersection of scale and product innovation. This opportunity caught my eye because your team's expansion into enterprise AI cloud infrastructure aligns perfectly with my analytical execution toolkit and long-term passion."</span>
         </div>
       </div>
     </section>
 
-    <section id="pro-tips">
+    <section>
       <h2><span>■</span> Executive Delivery &amp; Posture Pro-Tips</h2>
       <div class="card">
         <ul class="tips-list">
@@ -253,17 +256,14 @@
       </div>
     </section>
 
-    <section id="bank">
+    <section>
       <h2><span>■</span> Interactive Model Answer Bank</h2>
-      <p>Select your operational archetype below to examine professional, pre-formatted scripts built against the Eccles corporate evaluation criteria.</p>
+      <p>Select your operational archetype below to examine professional, pre-formatted scripts built against the Eccles corporate evaluation criteria. Use these as structural references, not scripts to recite.</p>
 
-      <!-- FIX: third button previously read onclick="switchTab" (no parameter, no invocation).
-           All three buttons now pass the archetype string AND a reference to themselves,
-           removing the dependency on the non-standard global `event` object (Firefox-safe). -->
       <div class="filter-bar">
-        <button class="filter-btn active" onclick="switchTab('switcher', this)">The Career Switcher</button>
-        <button class="filter-btn" onclick="switchTab('fasttrack', this)">The Fast Tracker / LDP</button>
-        <button class="filter-btn" onclick="switchTab('tech', this)">The Tech PM Explorer</button>
+        <button class="filter-btn active" onclick="switchArchetype('switcher', this)">The Career Switcher</button>
+        <button class="filter-btn" onclick="switchArchetype('fasttrack', this)">The Fast Tracker / LDP</button>
+        <button class="filter-btn" onclick="switchArchetype('tech', this)">The Tech PM Explorer</button>
       </div>
 
       <div id="tpl-switcher" class="template-card active">
@@ -324,9 +324,14 @@
       </div>
     </section>
 
-    <section id="builder">
+  </div>
+
+  <!-- ============ TAB 2: RECORD & PROMPT ============ -->
+  <div id="panel-record" class="tab-panel" role="tabpanel" aria-labelledby="tab-record">
+
+    <section>
       <h2><span>■</span> The Interactive Script Architecture Builder</h2>
-      <p>Draft your core professional variables below. As you write, your fragments will synthesize automatically into a cohesive master script inside the review block on the right.</p>
+      <p>Draft your core professional variables below. As you write, your fragments will synthesize automatically into a cohesive master script inside the review block on the right. Optional — you can also skip straight to recording below.</p>
 
       <div class="card">
         <div class="builder-grid">
@@ -360,16 +365,24 @@
       </div>
     </section>
 
-    <section id="sandbox">
+    <section id="sandbox-section">
       <h2><span>■</span> Live Audio Speech Analytics Sandbox</h2>
-      <p>Activate your browser microphone to practice your self-introduction out loud. This terminal captures your speech, tracks duration, calculates words-per-minute pacing, and flags common filler words in real time.</p>
+      <p>Choose your interview track, then activate your browser microphone to practice your self-introduction out loud. The sandbox tracks duration, words-per-minute pacing, and common filler words in real time.</p>
 
       <div class="audio-sandbox">
-        <!-- FIX: original banner claimed 100% local processing. Browser speech recognition
-             (Web Speech API) may send audio to the browser vendor's servers (e.g., Chrome
-             uses Google's speech service). The wording below is now accurate. -->
+        <!-- Accurate privacy wording: browser speech recognition may use vendor servers -->
         <div class="banner-note">
           <strong>Privacy Note:</strong> Timing, word-count, and filler analysis run locally in your browser, and this page never sends your audio or transcript anywhere. However, speech-to-text uses your browser's built-in recognition service, which in some browsers (e.g., Chrome) processes audio on the browser vendor's servers. Avoid speaking confidential information, or type/paste your script into the transcript area instead.
+        </div>
+
+        <div class="field-group" style="max-width: 380px;">
+          <label for="track-select">Interview Track <span>(colors your progress chart)</span></label>
+          <select id="track-select" onchange="onTrackChange()">
+            <option value="General">General</option>
+            <option value="Career Switcher">Career Switcher</option>
+            <option value="Fast Tracker / LDP">Fast Tracker / LDP</option>
+            <option value="Tech PM">Tech PM</option>
+          </select>
         </div>
 
         <div class="realtime-metrics">
@@ -416,79 +429,136 @@
         <div id="ai-output-box" class="ai-prompt-box">
           <div class="prompt-header">
             <h4>[TMAY EVALUATION CORE — FULL-TIME MBA · DAVID ECCLES SCHOOL OF BUSINESS]</h4>
-            <button class="btn" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="copyAiPrompt()">Copy Coaching Prompt</button>
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="copyAiPrompt()">Copy Coaching Prompt</button>
+              <button class="btn btn-accent" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="showTab('feedback', document.getElementById('tab-feedback'))">Next: Paste Feedback →</button>
+            </div>
           </div>
           <div id="prompt-content-body" class="prompt-body"></div>
         </div>
       </div>
     </section>
 
-    <footer class="site-footer">
-      Developed by Cory Burk, Senior Manager, Program Management · Full-Time MBA Program · David Eccles School of Business.<br>
-      © 2026 University of Utah, David Eccles School of Business. All rights reserved.
-    </footer>
+  </div>
 
-  </main>
-</div>
+  <!-- ============ TAB 3: PASTE FEEDBACK ============ -->
+  <div id="panel-feedback" class="tab-panel" role="tabpanel" aria-labelledby="tab-feedback">
+    <section>
+      <h2><span>■</span> Save Your AI Coaching Feedback</h2>
+      <p>Paste your coaching prompt into <strong style="color:var(--text)">one</strong> AI tool — Claude, ChatGPT, or Gemini — then copy the AI's full response and paste it below to save it to your history and progress chart. Pick one AI tool and stick with it: different tools score a little differently, and consistency is what makes your progress chart meaningful.</p>
+
+      <div id="pending-run-chip" class="pending-run-chip">No practice run staged yet — assemble a prompt in the Record &amp; Prompt tab first.</div>
+
+      <textarea class="feedback-input" id="userFeedback" placeholder="Paste your AI coaching feedback here..." aria-label="AI coaching feedback" oninput="autoExtractScore()"></textarea>
+
+      <div class="score-input-row">
+        <label for="aiScore"><strong>AI Assigned Score (0-100):</strong></label>
+        <input type="number" id="aiScore" min="0" max="100" placeholder="e.g. 72">
+      </div>
+      <p class="score-hint">If your pasted feedback contains a line like "SCORE: 72/100", this field fills in automatically. You can still edit it.</p>
+
+      <button class="btn btn-primary" onclick="saveFeedback()">Save Feedback</button>
+      <span id="saveConfirmation" class="save-confirm" role="status">Feedback Saved! View it in Saved History.</span>
+    </section>
+  </div>
+
+  <!-- ============ TAB 4: SAVED HISTORY ============ -->
+  <div id="panel-history" class="tab-panel" role="tabpanel" aria-labelledby="tab-history">
+    <section>
+      <h2><span>■</span> Your Coaching History</h2>
+      <p>Review your past practice runs and track your score progress. Each point and line segment on the chart is colored by the interview track you selected for that run.</p>
+
+      <div class="chart-container">
+        <div class="legend-box" id="customLegend"></div>
+        <canvas id="progressChart" role="img" aria-label="Line chart of TMAY scores over time, colored by interview track" style="display:none; max-height:320px;"></canvas>
+        <div id="chart-empty" class="chart-empty">Your progress chart appears here once you've saved at least two runs with scores.</div>
+      </div>
+
+      <div class="storage-meter-wrap">
+        <div class="storage-meter-text" id="storage-meter-text">Storage: calculating…</div>
+        <div class="storage-meter-bar"><div class="storage-meter-fill" id="storage-meter-fill"></div></div>
+      </div>
+
+      <div class="history-toolbar">
+        <button class="btn" onclick="exportHistory()">Export History (JSON)</button>
+        <button class="btn" onclick="document.getElementById('import-file').click()">Import History</button>
+        <input type="file" id="import-file" accept=".json,application/json" style="display:none" onchange="importHistory(event)">
+        <button class="btn btn-danger" onclick="clearChartOnly()">Clear Progress Chart</button>
+        <button class="btn btn-danger" onclick="clearAllHistory()">Clear All History</button>
+      </div>
+
+      <div id="history-list"></div>
+
+      <p class="privacy-note">Your history is stored only in this browser on this device (roughly 5 MB available). It is never uploaded anywhere. Use Export/Import to back it up or move it between devices. Deleting an individual entry keeps its point on the progress chart; "Clear Progress Chart" removes chart points but keeps saved feedback; "Clear All History" removes everything.</p>
+    </section>
+  </div>
+
+  <footer class="site-footer">
+    Developed by Cory Burk, Senior Manager, Program Management · Full-Time MBA Program · David Eccles School of Business.<br>
+    © 2026 University of Utah, David Eccles School of Business. All rights reserved.
+  </footer>
+
+</main>
 
 <script>
-  /* Mobile Navigation Drawer */
-  function toggleMobileNav() {
-    const aside = document.querySelector('aside');
-    const backdrop = document.getElementById('nav-backdrop');
-    const btn = document.querySelector('.mobile-toggle');
-    const isOpen = aside.classList.toggle('open');
-    btn.setAttribute('aria-expanded', isOpen);
-    btn.textContent = isOpen ? '✕' : '☰';
-    if (isOpen) {
-      backdrop.classList.add('active');
-      requestAnimationFrame(() => backdrop.classList.add('visible'));
-    } else {
-      backdrop.classList.remove('visible');
-      setTimeout(() => backdrop.classList.remove('active'), 250);
+  /* ================= Constants ================= */
+  const RUBRIC_VERSION = "TMAY-rubric-v1.0"; // weights: Hook 10 / Headline 30 / Highlight Reel 30 / Future Focus 30
+  const HISTORY_KEY = "tmayHistory";
+  const SCORELOG_KEY = "tmayScoreLog";
+  const STORAGE_BUDGET_BYTES = 5 * 1024 * 1024; // ~5MB typical localStorage quota
+
+  const trackColors = {
+    "General": "#a4a4b0",
+    "Career Switcher": "#ff2e2e",
+    "Fast Tracker / LDP": "#e3c876",
+    "Tech PM": "#3fb950"
+  };
+
+  /* ================= Utilities ================= */
+  function escapeHTML(str) {
+    return String(str == null ? "" : str)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+  }
+
+  function trySetItem(key, value) {
+    try {
+      localStorage.setItem(key, value);
+      return true;
+    } catch (e) {
+      alert("Could not save — this browser's storage for the tool is full. Export your history as a backup, then delete some saved entries and try again.");
+      return false;
     }
   }
 
-  function closeMobileNav() {
-    const aside = document.querySelector('aside');
-    if (aside.classList.contains('open')) toggleMobileNav();
+  function getHistory() {
+    try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch (e) { return []; }
+  }
+  function getScoreLog() {
+    try { return JSON.parse(localStorage.getItem(SCORELOG_KEY)) || []; } catch (e) { return []; }
   }
 
-  // Close the drawer when a nav link is tapped so it doesn't cover the target section
-  document.querySelectorAll('aside a').forEach(a => a.addEventListener('click', closeMobileNav));
+  /* ================= Tab Navigation ================= */
+  function showTab(name, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    if (btn) { btn.classList.add('active'); btn.setAttribute('aria-selected', 'true'); }
+    const panel = document.getElementById('panel-' + name);
+    if (panel) panel.classList.add('active');
+    window.scrollTo({ top: 0 });
+    if (name === 'history') loadHistory();
+  }
 
-  /* Navigation Highlighting Link Engine */
-  window.addEventListener('scroll', () => {
-    const sections = ['overview', 'blueprint', 'pro-tips', 'bank', 'builder', 'sandbox'];
-    let current = 'overview';
-    const scrollPos = window.scrollY + 140;
-
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollPos) {
-        current = id;
-      }
-    });
-
-    document.querySelectorAll('aside a').forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
-    });
-  });
-
-  /* Tab Control logic for Answer Bank Archetypes
-     FIX: previously relied on the global `event` object (non-standard, historically
-     unreliable in Firefox). The clicked button is now passed in explicitly. */
-  function switchTab(archetype, btn) {
+  /* ================= Archetype Bank ================= */
+  function switchArchetype(archetype, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.template-card').forEach(card => card.classList.remove('active'));
-
     if (btn) btn.classList.add('active');
-
     const target = document.getElementById('tpl-' + archetype);
     if (target) target.classList.add('active');
   }
 
-  /* Structural Script Dynamic Compilation */
+  /* ================= Script Builder ================= */
   function updateScript() {
     const hook = document.getElementById('b-hook').value.trim();
     const headline = document.getElementById('b-headline').value.trim();
@@ -510,9 +580,7 @@
     display.textContent = combined;
   }
 
-  /* FIX: previously injected hard-coded fake stats (00:45, 140 WPM) that looked like
-     real measurements. Duration is now estimated from word count at the 140 WPM
-     midpoint and clearly labeled as an estimate in the feedback banner and AI prompt. */
+  /* Push builder text to sandbox with honestly-labeled estimates */
   function pushToSandbox() {
     const text = document.getElementById('master-script-display').textContent;
     if (text && !text.includes("Your compiled elevator pitch")) {
@@ -525,7 +593,6 @@
       totalWordCount = words;
       document.getElementById('m-words').textContent = words;
 
-      // Estimate reading duration at the 140 WPM target midpoint
       const estSecs = Math.max(1, Math.round((words / 140) * 60));
       const mins = Math.floor(estSecs / 60).toString().padStart(2, '0');
       const secs = (estSecs % 60).toString().padStart(2, '0');
@@ -543,21 +610,22 @@
       document.getElementById('pacing-feedback-text').textContent =
         `Estimated read time: ${estSecs} seconds at a 140 WPM target pace. These are text-based estimates — record yourself out loud for real timing and pacing metrics.`;
 
-      document.getElementById('sandbox').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('sandbox-section').scrollIntoView({ behavior: 'smooth' });
     }
   }
 
-  /* Audio Recognition & Processing Pipeline Engine */
+  /* ================= Speech Recognition Engine ================= */
   let recognition;
   let isRecording = false;
-  let userStopped = true;        // FIX: distinguishes deliberate stop from browser auto-timeout
-  let metricsAreEstimated = false; // FIX: tracks whether metrics came from text estimate vs live audio
-  let typedMode = false;           // FIX: tracks fallback typed-input mode (no speech API)
+  let userStopped = true;          // distinguishes deliberate stop from browser silence-timeout
+  let metricsAreEstimated = false; // metrics came from builder text estimate, not live audio
+  let typedMode = false;           // fallback typed-input mode (no speech API)
   let startTime;
   let timerInterval;
   let totalWordCount = 0;
   let fillerCount = 0;
   let accumulatedTranscript = "";
+  let pendingRun = null;           // snapshot taken when the AI prompt is assembled
 
   const fillerWordsList = ['um', 'uh', 'like', 'so', 'you know', 'basically'];
 
@@ -596,7 +664,6 @@
       out.textContent = accumulatedTranscript + interimTranscript;
       out.style.color = "var(--text)";
 
-      // Real-time quick word check
       const currentText = out.textContent;
       const wordsArr = currentText.split(/\s+/).filter(w => w.length > 0);
       totalWordCount = wordsArr.length;
@@ -611,10 +678,8 @@
       }
     };
 
-    /* FIX: browsers auto-stop speech recognition after a few seconds of silence.
-       Previously this silently ended the session mid-practice (a pause between
-       blueprint sections killed the recording). Now the engine auto-restarts
-       unless the student explicitly pressed Stop. */
+    /* Browsers auto-stop recognition after a few seconds of silence.
+       Auto-restart unless the student explicitly pressed Stop. */
     recognition.onend = function() {
       if (!userStopped) {
         setTimeout(() => {
@@ -630,7 +695,6 @@
       document.getElementById('rec-indicator').style.display = 'none';
       document.getElementById('btn-compile').disabled = false;
 
-      // Final metric processing execution
       evaluatePacingAndMetrics();
     };
   } else {
@@ -667,9 +731,8 @@
       document.getElementById('pacing-feedback-banner').style.display = 'none';
       document.getElementById('ai-output-box').classList.remove('active');
 
-      /* FIX: startTime and the timer previously initialized inside onstart, which
-         would have reset the clock on every silence-timeout auto-restart. They now
-         initialize once per session, here. */
+      /* Timer initializes once per session here, NOT in onstart, so
+         silence-timeout auto-restarts don't reset the clock. */
       userStopped = false;
       startTime = Date.now();
       timerInterval = setInterval(updateTimerAndMetrics, 500);
@@ -703,7 +766,7 @@
         fillerCount++;
       }
     });
-    // Multi-word fillers ("you know") never match single tokens, so count them via phrase search
+    // Multi-word fillers ("you know") never match single tokens; count via phrase search
     const textLower = textChunk.toLowerCase();
     const countYouKnow = (textLower.match(/you know/g) || []).length;
     fillerCount += countYouKnow;
@@ -764,28 +827,58 @@
     fillerCount = 0;
     totalWordCount = 0;
     metricsAreEstimated = false;
+    pendingRun = null;
+    updatePendingChip();
   }
 
-  /* Core System Integration Prompt Compiler Engine */
+  function onTrackChange() {
+    // If a prompt is already assembled, regenerate it for the new track —
+    // no need to re-record to compare tracks.
+    if (document.getElementById('ai-output-box').classList.contains('active')) {
+      generateAiPrompt();
+    }
+  }
+
+  /* ================= AI Prompt Compiler ================= */
   function generateAiPrompt() {
     let duration = document.getElementById('m-time').textContent;
     let wpm = document.getElementById('m-wpm').textContent;
     const wordCount = document.getElementById('m-words').textContent;
     const fillers = document.getElementById('m-filler').textContent;
     const transcript = document.getElementById('transcript-output').textContent;
+    const track = document.getElementById('track-select').value;
 
-    /* FIX: metrics are now labeled honestly in the prompt so the AI coach doesn't
-       grade delivery mechanics against numbers that were never measured. */
+    const measured = !metricsAreEstimated && !typedMode && duration !== "00:00";
+
+    // Snapshot this run so Save Feedback records exactly what was evaluated,
+    // even if the sandbox changes afterward.
+    pendingRun = {
+      dateISO: new Date().toISOString(),
+      dateDisplay: new Date().toLocaleString(),
+      track: track,
+      transcript: transcript,
+      duration: duration,
+      wpm: wpm,
+      fillers: fillers,
+      wordCount: wordCount,
+      measured: measured
+    };
+    updatePendingChip();
+
+    // Honest metric labels for the AI coach
     if (metricsAreEstimated) {
       duration += " (estimated from text at 140 WPM — not a live recording)";
       wpm += " (assumed target pace — not measured)";
-    } else if (typedMode || duration === "00:00") {
+    } else if (!measured) {
       duration = "Not recorded (typed/pasted input)";
       wpm = "N/A (typed/pasted input)";
     }
 
     const macroPrompt = `You are the Elite AI Interview Coach for the Full-Time MBA Program at the David Eccles School of Business, University of Utah.
 Evaluate my raw verbal transcript for the critical "Tell Me About Yourself" introductory question against our strict executive coaching framework.
+Rubric version: ${RUBRIC_VERSION}
+
+TARGET INTERVIEW TRACK: ${track}
 
 STUDENT RUN PERFORMANCE METRICS:
 - Recorded Practice Duration: ${duration}
@@ -796,31 +889,44 @@ STUDENT RUN PERFORMANCE METRICS:
 VERBAL TRANSCRIPT TO EVALUATE:
 "${transcript}"
 
-CRITICAL INSTRUCTIONS FOR SCORING AND GRADING:
-Score each of the following 5 dimensions on a strict scale from 1 (Unacceptable) to 5 (Executive Presentation Fit). Provide a concise, single-sentence strategic justification for each score based directly on evidence within my transcript. If the duration or pacing metrics are marked as estimated or not recorded, evaluate content dimensions only and note that delivery mechanics could not be assessed.
+SCORING INSTRUCTIONS (100 POINTS TOTAL):
+Score each of the following 4 dimensions. Be a strict grader: most first attempts should land between 55 and 75. Reserve 90+ for genuinely near-flawless answers. Do not inflate scores to be encouraging — an honest number is the coaching.
 
-THE 5 EVALUATION DIMENSIONS:
-1. Gratitude & Target Professional Hook: Did I open with posture, thank the team, and explicitly name the target organization or specific leadership pipeline?
-2. Narrative Through-Line / Headline: Is there a clear definition of who I am professionally and what I am universally known for?
-3. The Highlight Reel (Greatest Hits): Did I deploy 2-3 data-driven, quantifiable accomplishments instead of reading a chronological biography?
-4. Future-Focused Alignment: Did I establish a compelling case for why this business entity represents the perfect synthesis of where I thrive?
-5. Delivery, Pacing & Mechanics: Assess my performance metrics (Target: 60-90 seconds, 130-150 WPM, zero fillers).
+1. Opening Gratitude & Target Hook (10 points): Did I open with posture, thank the interviewer, and explicitly name the target organization or specific role/leadership pipeline?
+   - 9-10: Warm, confident open that names the exact role and company. 6-8: Opens politely but the target is vague or generic. 3-5: Perfunctory or missing either gratitude or target. 0-2: Launches straight into biography with no hook.
+
+2. The Strong Headline / Professional Through-line (30 points): Is there a clear, concise definition of who I am professionally and what I am universally known for?
+   - 27-30: One or two crisp sentences that a recruiter could repeat verbatim to a hiring manager. 20-26: A real through-line exists but is wordy or partially generic. 10-19: Identity statement is buried, cliched, or a job-title recitation. 0-9: No discernible headline.
+
+3. The Highlight Reel (30 points): Did I deploy 2-3 data-driven, quantifiable accomplishments instead of reading a chronological biography?
+   - 27-30: 2-3 achievements, each quantified, each clearly tied to the through-line. 20-26: Real achievements but weakly quantified or one strong item padded with filler. 10-19: Chronological resume walk with occasional metrics. 0-9: No concrete accomplishments.
+
+4. Future-Focused Alignment (30 points): Did I establish a compelling, specific case for why this organization and role represent where I thrive and what I intend to build next?
+   - 27-30: Names something specific about the company/role and connects it to demonstrated strengths. 20-26: Genuine enthusiasm but the connection is one-directional or generic. 10-19: A closing pleasantry standing in for alignment. 0-9: No forward-looking close.
 
 YOUR SYSTEM OUTPUT FORMAT REQUIREMENTS:
-You must strictly follow this exact layout architecture without deviation. Do not include introductory conversational pleasantries before your rubric.
+You must strictly follow this exact layout without deviation. Do not include any conversational text before the score line. The FIRST line of your response must be exactly in this format:
+
+SCORE: NN/100
+
+**Score Breakdown**
+- Opening Gratitude & Target Hook: X/10 — [one-sentence justification citing transcript evidence]
+- Strong Headline / Through-line: X/30 — [one-sentence justification citing transcript evidence]
+- Highlight Reel: X/30 — [one-sentence justification citing transcript evidence]
+- Future-Focused Alignment: X/30 — [one-sentence justification citing transcript evidence]
 
 **What Worked**
-[Detail 1-2 distinct strengths — explicitly cite words from the transcript text, not generic praise]
+[1-2 distinct strengths — explicitly cite words from the transcript, not generic praise]
 
 **Top 2 Improvements**
-1. [Identify the most critical narrative, structural, or data gap versus a model answer + provide an actionable, scripted fix showing me exactly what to say]
-2. [Identify the second gap + provide an explicit actionable script fix]
+1. [The most critical narrative, structural, or data gap + an actionable, scripted fix showing exactly what to say]
+2. [The second gap + an explicit scripted fix]
 
 **Power Move**
-[Provide one advanced corporate communication technique or high-impact narrative re-frame that would instantly elevate this introduction from good to exceptional]
+[One advanced communication technique or narrative re-frame that would elevate this introduction from good to exceptional]
 
-**Filler Word Note**
-[Only include this specific subsection if filler words were flagged or detected in the performance dashboard, detailing how to clear the vocal path]`;
+**Delivery Notes** (unscored)
+[Comment on duration, pacing, and filler words using the metrics above, against targets of 60-90 seconds, 130-150 WPM, and zero fillers. If the metrics are marked estimated or not recorded, state that delivery mechanics could not be assessed and skip this analysis rather than inventing it.]`;
 
     document.getElementById('prompt-content-body').textContent = macroPrompt;
     document.getElementById('ai-output-box').classList.add('active');
@@ -830,11 +936,369 @@ You must strictly follow this exact layout architecture without deviation. Do no
   function copyAiPrompt() {
     const txt = document.getElementById('prompt-content-body').textContent;
     navigator.clipboard.writeText(txt).then(() => {
-      alert("Full-Time MBA Coaching Prompt copied to clipboard! Paste it into your AI assistant of choice (Claude, ChatGPT, or Gemini) to receive your executive scorecard feedback.");
+      alert("Full-Time MBA Coaching Prompt copied to clipboard! Paste it into your AI assistant of choice (Claude, ChatGPT, or Gemini), then bring the response back to the Paste Feedback tab.");
     }).catch(() => {
       alert("Copy failed — your browser may block clipboard access on this page. Select the prompt text manually and copy it.");
     });
   }
+
+  /* ================= Paste Feedback ================= */
+  function updatePendingChip() {
+    const chip = document.getElementById('pending-run-chip');
+    if (pendingRun) {
+      chip.textContent = `Saving against: ${pendingRun.dateDisplay} · ${pendingRun.track} · ${pendingRun.wordCount} words`;
+    } else {
+      chip.textContent = "No practice run staged yet — assemble a prompt in the Record & Prompt tab first.";
+    }
+  }
+
+  function autoExtractScore() {
+    const text = document.getElementById('userFeedback').value;
+    const match = text.match(/SCORE:\s*(\d{1,3})\s*\/\s*100/i);
+    if (match) {
+      let score = parseInt(match[1], 10);
+      if (score >= 0 && score <= 100) {
+        document.getElementById('aiScore').value = score;
+      }
+    }
+  }
+
+  function saveFeedback() {
+    const feedback = document.getElementById('userFeedback').value.trim();
+    if (!feedback) {
+      alert("Paste your AI coaching feedback first.");
+      return;
+    }
+
+    // Prefer the staged run snapshot; fall back to the current transcript
+    let run = pendingRun;
+    if (!run) {
+      const transcript = document.getElementById('transcript-output').textContent;
+      const isPlaceholder = transcript.includes("Speak your script") || transcript.includes("Paste or type your") || transcript.includes("Audio capture is unavailable");
+      if (isPlaceholder || !transcript.trim()) {
+        alert("No practice run found. Record or type your introduction in the Record & Prompt tab and assemble the AI prompt first.");
+        return;
+      }
+      run = {
+        dateISO: new Date().toISOString(),
+        dateDisplay: new Date().toLocaleString(),
+        track: document.getElementById('track-select').value,
+        transcript: transcript,
+        duration: null, wpm: null, fillers: null,
+        wordCount: transcript.split(/\s+/).filter(w => w.length > 0).length,
+        measured: false
+      };
+    }
+
+    const rawScore = document.getElementById('aiScore').value;
+    let score = null;
+    if (rawScore !== "") {
+      score = Math.max(0, Math.min(100, parseInt(rawScore, 10)));
+      if (isNaN(score)) score = null;
+    }
+
+    const entry = {
+      dateISO: run.dateISO,
+      date: run.dateDisplay,
+      track: run.track,
+      transcript: run.transcript,
+      feedback: feedback,
+      score: score,
+      duration: run.duration,
+      wpm: run.wpm,
+      fillers: run.fillers,
+      measured: run.measured,
+      rubricVersion: RUBRIC_VERSION
+    };
+
+    const history = getHistory();
+    history.unshift(entry); // newest first
+    if (!trySetItem(HISTORY_KEY, JSON.stringify(history))) return;
+
+    // Score log is a separate, lightweight store (oldest to newest)
+    if (typeof score === 'number') {
+      const scoreLog = getScoreLog();
+      scoreLog.push({ dateISO: entry.dateISO, date: entry.date, score: score, track: entry.track, rubricVersion: RUBRIC_VERSION });
+      trySetItem(SCORELOG_KEY, JSON.stringify(scoreLog));
+    }
+
+    // Reset the feedback form and staged run
+    document.getElementById('userFeedback').value = "";
+    document.getElementById('aiScore').value = "";
+    pendingRun = null;
+    updatePendingChip();
+
+    const confirmEl = document.getElementById('saveConfirmation');
+    confirmEl.style.display = 'inline';
+    setTimeout(() => { confirmEl.style.display = 'none'; }, 4000);
+  }
+
+  /* ================= Saved History ================= */
+  let progressChartInstance = null;
+
+  function loadHistory() {
+    const container = document.getElementById('history-list');
+    const history = getHistory();
+
+    if (history.length === 0) {
+      container.innerHTML = '<p style="color:var(--text-faint); font-style:italic;">No saved feedback yet. Complete a practice run, get AI coaching, and save it in the Paste Feedback tab to see it here.</p>';
+    } else {
+      let html = '';
+      history.forEach((item, index) => {
+        const trackColor = trackColors[item.track] || '#a4a4b0';
+        const displayScore = (typeof item.score === 'number') ? `${item.score}/100` : 'No Score';
+        const metricsLine = item.measured
+          ? `Duration ${escapeHTML(item.duration)} · ${escapeHTML(item.wpm)} WPM · ${escapeHTML(item.fillers)} fillers`
+          : 'Delivery metrics not measured for this run';
+
+        html += `
+          <div class="saved-item">
+            <div class="saved-score-badge">${escapeHTML(displayScore)}</div>
+            <div class="saved-date">${escapeHTML(item.date)}
+              <span class="saved-track" style="background-color: ${trackColor};">${escapeHTML(item.track)}</span>
+            </div>
+            <div class="saved-date">${metricsLine}</div>
+            <strong>Your Introduction:</strong>
+            <p class="body-text" style="font-style:italic;">"${escapeHTML(item.transcript)}"</p>
+            <strong>Coach Feedback:</strong>
+            <p class="body-text">${escapeHTML(item.feedback)}</p>
+            <button class="delete-entry-btn" onclick="deleteEntry(${index})">Delete this entry (chart point kept)</button>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    renderChart(getScoreLog());
+    updateStorageMeter();
+  }
+
+  function deleteEntry(index) {
+    if (!confirm("Delete this saved entry (transcript and feedback)?\n\nIts score point will stay on the progress chart. This cannot be undone.")) return;
+    const history = getHistory();
+    history.splice(index, 1);
+    trySetItem(HISTORY_KEY, JSON.stringify(history));
+    loadHistory();
+  }
+
+  function clearChartOnly() {
+    if (!confirm("Clear the progress chart's score points?\n\nYour saved transcripts and feedback will be kept. This cannot be undone.")) return;
+    localStorage.removeItem(SCORELOG_KEY);
+    loadHistory();
+  }
+
+  function clearAllHistory() {
+    if (!confirm("Delete ALL saved runs, feedback, and chart points? This cannot be undone.\n\nTip: use Export History first if you want a backup.")) return;
+    localStorage.removeItem(HISTORY_KEY);
+    localStorage.removeItem(SCORELOG_KEY);
+    loadHistory();
+  }
+
+  function renderChart(scoreLog) {
+    const canvas = document.getElementById('progressChart');
+    const emptyEl = document.getElementById('chart-empty');
+    const legendBox = document.getElementById('customLegend');
+
+    const valid = (scoreLog || []).filter(item => typeof item.score === 'number');
+
+    if (valid.length < 2 || typeof Chart === 'undefined') {
+      canvas.style.display = 'none';
+      legendBox.innerHTML = '';
+      emptyEl.style.display = 'block';
+      if (typeof Chart === 'undefined' && valid.length >= 2) {
+        emptyEl.textContent = "The chart library could not load (offline or blocked CDN). Your scores are still saved below.";
+      }
+      if (progressChartInstance) { progressChartInstance.destroy(); progressChartInstance = null; }
+      return;
+    }
+
+    emptyEl.style.display = 'none';
+    canvas.style.display = 'block';
+
+    const labels = valid.map((_, i) => `Run ${i + 1}`);
+    const dataScores = valid.map(item => item.score);
+    const pointColors = valid.map(item => trackColors[item.track] || '#a4a4b0');
+
+    // Custom legend: only tracks that appear in the data
+    const tracksPresent = [...new Set(valid.map(item => item.track))];
+    legendBox.innerHTML = tracksPresent.map(t =>
+      `<span><span class="legend-swatch" style="background:${trackColors[t] || '#a4a4b0'}"></span>${escapeHTML(t)}</span>`
+    ).join('');
+
+    if (progressChartInstance) { progressChartInstance.destroy(); }
+
+    progressChartInstance = new Chart(canvas.getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: dataScores,
+          borderColor: '#a4a4b0',
+          segment: {
+            borderColor: ctx => pointColors[ctx.p1DataIndex] || '#a4a4b0'
+          },
+          pointBackgroundColor: pointColors,
+          pointBorderColor: pointColors,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          tension: 0.25,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) {
+                const item = valid[ctx.dataIndex];
+                return `${item.score}/100 · ${item.track} · ${item.date}`;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            min: 0, max: 100,
+            ticks: { color: '#a4a4b0' },
+            grid: { color: '#2b2b34' }
+          },
+          x: {
+            ticks: { color: '#a4a4b0' },
+            grid: { color: '#2b2b34' }
+          }
+        }
+      }
+    });
+  }
+
+  /* ================= Storage Meter ================= */
+  function updateStorageMeter() {
+    let bytes = 0;
+    try {
+      bytes = (localStorage.getItem(HISTORY_KEY) || "").length * 2
+            + (localStorage.getItem(SCORELOG_KEY) || "").length * 2; // UTF-16 ~2 bytes/char
+    } catch (e) { /* leave at 0 */ }
+
+    const pct = Math.min(100, (bytes / STORAGE_BUDGET_BYTES) * 100);
+    const fill = document.getElementById('storage-meter-fill');
+    const text = document.getElementById('storage-meter-text');
+
+    fill.style.width = pct.toFixed(1) + '%';
+    const kb = (bytes / 1024).toFixed(1);
+    let msg = `Storage used by this tool: ${kb} KB of ~5 MB available in this browser.`;
+    if (pct > 85) {
+      fill.style.background = 'var(--red-bright)';
+      msg += ' Nearly full — export a backup and delete old entries.';
+    } else if (pct > 60) {
+      fill.style.background = 'var(--gold-bright)';
+      msg += ' Getting full — consider exporting a backup.';
+    } else {
+      fill.style.background = 'var(--green)';
+    }
+    text.textContent = msg;
+  }
+
+  /* ================= Export / Import ================= */
+  function exportHistory() {
+    const history = getHistory();
+    const scoreLog = getScoreLog();
+    if (history.length === 0 && scoreLog.length === 0) {
+      alert("No history to export yet.");
+      return;
+    }
+    const bundle = {
+      tool: "eccles-tmay-playbook",
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      history: history,
+      scoreLog: scoreLog
+    };
+    const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'tmay-playbook-history.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function dedupKey(e) {
+    return `${e.dateISO || e.date || ''}|${(e.transcript || '').slice(0, 80)}|${e.score}`;
+  }
+  function scoreDedupKey(e) {
+    return `${e.dateISO || e.date || ''}|${e.score}|${e.track || ''}`;
+  }
+
+  function importHistory(event) {
+    const file = event.target.files && event.target.files[0];
+    event.target.value = ''; // allow re-importing the same file later
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      let data;
+      try {
+        data = JSON.parse(reader.result);
+      } catch (e) {
+        alert("Import failed: that file is not valid JSON.");
+        return;
+      }
+
+      let importedHistory, importedScoreLog;
+      if (Array.isArray(data)) {
+        importedHistory = data;         // defensive: plain array of entries
+        importedScoreLog = null;
+      } else if (data && Array.isArray(data.history)) {
+        importedHistory = data.history;
+        importedScoreLog = Array.isArray(data.scoreLog) ? data.scoreLog : null;
+      } else {
+        alert("Import failed: this doesn't look like a TMAY Playbook export file.");
+        return;
+      }
+
+      // Merge histories with dedup, keep newest-first by dateISO
+      const existing = getHistory();
+      const seen = new Set(existing.map(dedupKey));
+      let addedH = 0;
+      importedHistory.forEach(e => {
+        if (e && e.transcript !== undefined && !seen.has(dedupKey(e))) {
+          existing.push(e);
+          seen.add(dedupKey(e));
+          addedH++;
+        }
+      });
+      existing.sort((a, b) => (b.dateISO || '').localeCompare(a.dateISO || ''));
+      if (!trySetItem(HISTORY_KEY, JSON.stringify(existing))) return;
+
+      // Merge score logs with dedup, keep oldest-first
+      let addedS = 0;
+      if (importedScoreLog) {
+        const log = getScoreLog();
+        const seenS = new Set(log.map(scoreDedupKey));
+        importedScoreLog.forEach(e => {
+          if (e && typeof e.score === 'number' && !seenS.has(scoreDedupKey(e))) {
+            log.push(e);
+            seenS.add(scoreDedupKey(e));
+            addedS++;
+          }
+        });
+        log.sort((a, b) => (a.dateISO || '').localeCompare(b.dateISO || ''));
+        trySetItem(SCORELOG_KEY, JSON.stringify(log));
+      }
+
+      alert(`Import complete: ${addedH} history entr${addedH === 1 ? 'y' : 'ies'} and ${addedS} chart point${addedS === 1 ? '' : 's'} added (duplicates skipped).`);
+      loadHistory();
+    };
+    reader.readAsText(file);
+  }
+
+  /* ================= Init ================= */
+  updateStorageMeter();
 </script>
 
 </body>
